@@ -15,22 +15,13 @@ public class Server {
         this.port = port;
     }
 
-    public short getPort() {
-        return port;
-    }
-
     public void start() {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-
-
-                try (
-                        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)
-                ) {
-
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
                     out.println("Write your name");
                     String name = in.readLine();
                     System.out.println(name);
@@ -63,10 +54,8 @@ public class Server {
                     System.out.println(ex.getMessage());
                 }
             }
-
         } catch (IOException ioException) {
             System.out.println(" Error " + ioException);
         }
-
     }
 }
